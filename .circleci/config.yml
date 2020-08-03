@@ -1,0 +1,56 @@
+version: 2
+
+jobs:
+  deploy:
+    environment:
+      AWS_DEFAULT_REGION: us-east-1
+    docker:
+      - image: circleci/python:3.8.2
+    steps:
+      - run:
+          name: poetry in-project true
+          command: |
+            set -x
+
+            poetry config virtualenvs.in-project true
+      - checkout
+      - restore_cache:
+          keys:
+            - ffxiv-item-name-database-layer-poetry-{{ checksum "pyproject.toml" }}-{{ checksum "poetry.lock" }}
+      - restore_cache:
+          keys:
+            - ffxiv-item-name-database-layer-beautifulsoup4-{{ checksum "Dockerfile" }}-{{ checksum "layers/beautifulsoup4/requirements.txt" }}
+      - run:
+          name: install dependencies
+          command: |
+            set -x
+
+            poetry install
+
+            if [ ! -d layers/beautifulsoup4/python ]; then
+              make build
+            fi
+      - save_cache:
+          paths:
+            - .venv
+          key: ffxiv-item-name-database-layer-poetry-{{ checksum "pyproject.toml" }}-{{ checksum "poetry.lock" }}
+      - save_cache:
+          paths:
+            - layers/beautifulsoup4/python
+          key: ffxiv-item-name-database-layer-beautifulsoup4-{{ checksum "Dockerfile" }}-{{ checksum "layers/beautifulsoup4/requirements.txt" }}
+      - run:
+          name: deploy
+          command: |
+            set -x
+
+            make deploy
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
+          context: ffxiv-item-name-database
+          filters:
+            branches:
+              only: master

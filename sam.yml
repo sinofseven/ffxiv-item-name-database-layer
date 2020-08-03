@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  BeautifulSoup4Layer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: layers/beautifulsoup4
+
+  SSMParameterBeautifulSoup4Layer:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Value: !Ref BeautifulSoup4Layer
+
+Outputs:
+  BeautifulSoup4LayerArn:
+    Value: !Ref BeautifulSoup4Layer
+
+  SSMParameterBeautifulSoup4LayerName:
+    Value: !Ref SSMParameterBeautifulSoup4Layer

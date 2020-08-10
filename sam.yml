@@ -12,6 +12,7 @@ Resources:
     Properties:
       Type: String
       Value: !Ref BeautifulSoup4Layer
+      Name: /ffxiv-item-name-database/beautiful-soup-4-layer
 
 Outputs:
   BeautifulSoup4LayerArn:

@@ -30,3 +30,8 @@ deploy: package
 	poetry run aws cloudformation describe-stacks \
 		--stack-name $(stack_name) \
 		--query Stacks[0].Outputs
+
+describe:
+	poetry run aws cloudformation describe-stacks \
+		--stack-name $(stack_name) \
+		--query Stacks[0].Outputs

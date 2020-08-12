@@ -14,27 +14,10 @@ Resources:
       Value: !Ref LayerBeautifulSoup4
       Name: !Sub /ffxiv-item-name-database/layer/beautiful-soup-4
 
-  LayerUlid:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      ContentUri: layers/ulid
-
-  SSMParameterUlid:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Type: String
-      Value: !Ref LayerUlid
-      Name: !Sub /ffxiv-item-name-database/layer/ulid
-
 Outputs:
   LayerArnBeautifulSoup4:
     Value: !Ref LayerBeautifulSoup4
 
-  LayerArnUlid:
-    Value: !Ref LayerUlid
-
   SSMParameterNameBeautifulSoup4:
     Value: !Ref SSMParameterBeautifulSoup4
 
-  SSMParameterNameUlid:
-    Value: !Ref SSMParameterUlid

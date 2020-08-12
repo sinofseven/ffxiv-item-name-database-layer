@@ -2,24 +2,39 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 
 Resources:
-  BeautifulSoup4Stack:
-    Type: AWS::CloudFormation::Stack
+  LayerBeautifulSoup4:
+    Type: AWS::Serverless::LayerVersion
     Properties:
-      TemplateURL: layer.yml
-      Parameters:
-        ContentUri: layers/beautifulsoup4
-        Name: beautiful-soup-4
+      ContentUri: layers/beautifulsoup4
 
-  UlidStack:
-    Type: AWS::CloudFormation::Stack
+  SSMParameterBeautifulSoup4:
+    Type: AWS::SSM::Parameter
     Properties:
-      TemplateURL: layer.yml
-      Parameters:
-        ContentUri: layers/ulid
-        Name: ulid
+      Type: String
+      Value: !Ref LayerBeautifulSoup4
+      Name: !Sub /ffxiv-item-name-database/layer/beautiful-soup-4
+
+  LayerUlid:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: layers/ulid
+
+  SSMParameterUlid:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Value: !Ref LayerUlid
+      Name: !Sub /ffxiv-item-name-database/layer/ulid
 
 Outputs:
-  SSMParameterBeautifulSoup4LayerName:
-    Value: !GetAtt BeautifulSoup4Stack.Outputs.SSMParameterName
-  SSMParameterUlidLayerName:
-    Value: !GetAtt UlidStack.Outputs.SSMParameterName
+  LayerArnBeautifulSoup4:
+    Value: !Ref LayerBeautifulSoup4
+
+  LayerArnUlid:
+    Value: !Ref LayerUlid
+
+  SSMParameterNameBeautifulSoup4:
+    Value: !Ref SSMParameterBeautifulSoup4
+
+  SSMParameterNameUlid:
+    Value: !Ref SSMParameterUlid

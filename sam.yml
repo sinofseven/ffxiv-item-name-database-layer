@@ -2,21 +2,20 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 
 Resources:
-  BeautifulSoup4Layer:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
+  BeautifulSoup4Stack:
+    Type: AWS::CloudFormation::Stack
+    Parameters:
       ContentUri: layers/beautifulsoup4
+      Name: beautiful-soup-4
 
-  SSMParameterBeautifulSoup4Layer:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Type: String
-      Value: !Ref BeautifulSoup4Layer
-      Name: /ffxiv-item-name-database/beautiful-soup-4-layer
+  UlidStack:
+    Type: AWS::CloudFormation::Stack
+    Parameters:
+      ContentUri: layers/ulid
+      Name: ulid
 
 Outputs:
-  BeautifulSoup4LayerArn:
-    Value: !Ref BeautifulSoup4Layer
-
   SSMParameterBeautifulSoup4LayerName:
-    Value: !Ref SSMParameterBeautifulSoup4Layer
+    Value: !GetAttr BeautifulSoup4Stack.Outputs.SSMParameterName
+  SSMParameterUlidLayerName:
+    Value: !GetAttr UlidStack.Outputs.SSMParameterName

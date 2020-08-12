@@ -5,6 +5,7 @@ Resources:
   BeautifulSoup4Stack:
     Type: AWS::CloudFormation::Stack
     Properties:
+      TemplateUrl: layer.yml
       Parameters:
         ContentUri: layers/beautifulsoup4
         Name: beautiful-soup-4
@@ -12,6 +13,7 @@ Resources:
   UlidStack:
     Type: AWS::CloudFormation::Stack
     Properties:
+      TemplateUrl: layer.yml
       Parameters:
         ContentUri: layers/ulid
         Name: ulid

@@ -18,6 +18,6 @@ Resources:
 
 Outputs:
   SSMParameterBeautifulSoup4LayerName:
-    Value: !GetAttr BeautifulSoup4Stack.Outputs.SSMParameterName
+    Value: !GetAtt BeautifulSoup4Stack.Outputs.SSMParameterName
   SSMParameterUlidLayerName:
-    Value: !GetAttr UlidStack.Outputs.SSMParameterName
+    Value: !GetAtt UlidStack.Outputs.SSMParameterName

@@ -4,15 +4,17 @@ Transform: AWS::Serverless-2016-10-31
 Resources:
   BeautifulSoup4Stack:
     Type: AWS::CloudFormation::Stack
-    Parameters:
-      ContentUri: layers/beautifulsoup4
-      Name: beautiful-soup-4
+    Properties:
+      Parameters:
+        ContentUri: layers/beautifulsoup4
+        Name: beautiful-soup-4
 
   UlidStack:
     Type: AWS::CloudFormation::Stack
-    Parameters:
-      ContentUri: layers/ulid
-      Name: ulid
+    Properties:
+      Parameters:
+        ContentUri: layers/ulid
+        Name: ulid
 
 Outputs:
   SSMParameterBeautifulSoup4LayerName:
